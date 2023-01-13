@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import EmployeList from "./components/EmployeList";
+import { useState } from "react";
+
+const employees = [
+  {
+    id: 1,
+    name: "Goku",
+    department: "Admin",
+  },
+  {
+    id: 2,
+    name: "Tony",
+    department: "Engineering",
+  },
+  {
+    id: 3,
+    name: "Loki",
+    department: "Marketing",
+  },
+];
+
+const showAlert = (name, dept) => {
+  alert(`Employe Name:- ${name} 
+Department:- ${dept}`);
+};
 
 function App() {
+  const [sendId, setSendId] = useState("");
+  const empList = employees.map((emp, index) => (
+    <h3 onClick={() => setSendId(emp.id)} key={index}>
+      {emp.name}
+    </h3>
+  ));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>Employee List</h1>
+      {empList}
+      <EmployeList list={employees} showAlert={showAlert} empID={sendId} />
+      <hr />
     </div>
   );
 }
